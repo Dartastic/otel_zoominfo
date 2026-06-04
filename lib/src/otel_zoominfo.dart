@@ -2,7 +2,6 @@
 // Copyright 2025-2026 Mindful Software LLC d/b/a Dartastic.io, All rights reserved.
 
 import 'package:dartastic_opentelemetry/dartastic_opentelemetry.dart';
-import 'package:dartastic_opentelemetry_api/dartastic_opentelemetry_api.dart';
 
 import 'otel_zoominfo_suppression.dart';
 
@@ -74,82 +73,112 @@ Future<T> tracedZoomInfo<T>({
   final t = tracer ?? OTel.tracerProvider().getTracer('otel_zoominfo');
   final span = t.startSpan('zoominfo $operation', kind: SpanKind.client);
   try {
-    span.setStringAttribute('rpc.system', 'zoominfo');
-    span.setStringAttribute('rpc.method', operation);
+    span.addAttributes(
+        OTel.attributes([OTel.attributeString('rpc.system', 'zoominfo')]));
+    span.addAttributes(
+        OTel.attributes([OTel.attributeString('rpc.method', operation)]));
     final r = await invoke();
     final res = r.result;
     if (res != null) {
       if (res.surface != null) {
-        span.setStringAttribute('zoominfo.surface', res.surface!);
+        span.addAttributes(OTel.attributes(
+            [OTel.attributeString('zoominfo.surface', res.surface!)]));
       }
       if (res.entity != null) {
-        span.setStringAttribute('zoominfo.entity', res.entity!);
+        span.addAttributes(OTel.attributes(
+            [OTel.attributeString('zoominfo.entity', res.entity!)]));
       }
       if (res.searchType != null) {
-        span.setStringAttribute('zoominfo.search.type', res.searchType!);
+        span.addAttributes(OTel.attributes(
+            [OTel.attributeString('zoominfo.search.type', res.searchType!)]));
       }
       if (res.matchType != null) {
-        span.setStringAttribute('zoominfo.match.type', res.matchType!);
+        span.addAttributes(OTel.attributes(
+            [OTel.attributeString('zoominfo.match.type', res.matchType!)]));
       }
       if (res.matchConfidence != null) {
-        span.setStringAttribute(
-            'zoominfo.match.confidence', res.matchConfidence!);
+        span.addAttributes(OTel.attributes([
+          OTel.attributeString(
+              'zoominfo.match.confidence', res.matchConfidence!)
+        ]));
       }
       if (res.recordsReturned != null) {
-        span.setIntAttribute('zoominfo.records_returned', res.recordsReturned!);
+        span.addAttributes(OTel.attributes([
+          OTel.attributeInt('zoominfo.records_returned', res.recordsReturned!)
+        ]));
       }
       if (res.totalResults != null) {
-        span.setIntAttribute('zoominfo.total_results', res.totalResults!);
+        span.addAttributes(OTel.attributes(
+            [OTel.attributeInt('zoominfo.total_results', res.totalResults!)]));
       }
       if (res.pageNumber != null) {
-        span.setIntAttribute('zoominfo.page', res.pageNumber!);
+        span.addAttributes(OTel.attributes(
+            [OTel.attributeInt('zoominfo.page', res.pageNumber!)]));
       }
       if (res.creditsCharged != null) {
-        span.setIntAttribute('zoominfo.credits.charged', res.creditsCharged!);
+        span.addAttributes(OTel.attributes([
+          OTel.attributeInt('zoominfo.credits.charged', res.creditsCharged!)
+        ]));
       }
       if (res.creditsRemaining != null) {
-        span.setIntAttribute(
-            'zoominfo.credits.remaining', res.creditsRemaining!);
+        span.addAttributes(OTel.attributes([
+          OTel.attributeInt('zoominfo.credits.remaining', res.creditsRemaining!)
+        ]));
       }
       if (res.creditsLimit != null) {
-        span.setIntAttribute('zoominfo.credits.limit', res.creditsLimit!);
+        span.addAttributes(OTel.attributes(
+            [OTel.attributeInt('zoominfo.credits.limit', res.creditsLimit!)]));
       }
       if (res.intentTopic != null) {
-        span.setStringAttribute('zoominfo.intent.topic', res.intentTopic!);
+        span.addAttributes(OTel.attributes(
+            [OTel.attributeString('zoominfo.intent.topic', res.intentTopic!)]));
       }
       if (res.intentScore != null) {
-        span.setDoubleAttribute('zoominfo.intent.score', res.intentScore!);
+        span.addAttributes(OTel.attributes(
+            [OTel.attributeDouble('zoominfo.intent.score', res.intentScore!)]));
       }
       if (res.intentSignalCount != null) {
-        span.setIntAttribute(
-            'zoominfo.intent.signal_count', res.intentSignalCount!);
+        span.addAttributes(OTel.attributes([
+          OTel.attributeInt(
+              'zoominfo.intent.signal_count', res.intentSignalCount!)
+        ]));
       }
       if (res.scoopType != null) {
-        span.setStringAttribute('zoominfo.scoop.type', res.scoopType!);
+        span.addAttributes(OTel.attributes(
+            [OTel.attributeString('zoominfo.scoop.type', res.scoopType!)]));
       }
       if (res.scoopCount != null) {
-        span.setIntAttribute('zoominfo.scoop.count', res.scoopCount!);
+        span.addAttributes(OTel.attributes(
+            [OTel.attributeInt('zoominfo.scoop.count', res.scoopCount!)]));
       }
       if (res.technologyCount != null) {
-        span.setIntAttribute('zoominfo.technology.count', res.technologyCount!);
+        span.addAttributes(OTel.attributes([
+          OTel.attributeInt('zoominfo.technology.count', res.technologyCount!)
+        ]));
       }
       if (res.companyId != null) {
-        span.setStringAttribute('zoominfo.company.id', res.companyId!);
+        span.addAttributes(OTel.attributes(
+            [OTel.attributeString('zoominfo.company.id', res.companyId!)]));
       }
       if (res.contactId != null) {
-        span.setStringAttribute('zoominfo.contact.id', res.contactId!);
+        span.addAttributes(OTel.attributes(
+            [OTel.attributeString('zoominfo.contact.id', res.contactId!)]));
       }
       if (res.statusCode != null) {
-        span.setIntAttribute('http.response.status_code', res.statusCode!);
+        span.addAttributes(OTel.attributes(
+            [OTel.attributeInt('http.response.status_code', res.statusCode!)]));
       }
       if (res.errorCode != null) {
-        span.setStringAttribute('zoominfo.error.code', res.errorCode!);
+        span.addAttributes(OTel.attributes(
+            [OTel.attributeString('zoominfo.error.code', res.errorCode!)]));
       }
       final fail = res.errorCode != null ||
           (res.statusCode != null && res.statusCode! >= 400);
       if (fail) {
-        span.setStringAttribute(
-            ErrorResource.errorType.key, res.errorCode ?? 'zoominfo.error');
+        span.addAttributes(OTel.attributes([
+          OTel.attributeString(
+              ErrorResource.errorType.key, res.errorCode ?? 'zoominfo.error')
+        ]));
         span.setStatus(SpanStatusCode.Error, res.errorMessage);
       }
     }
